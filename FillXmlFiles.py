@@ -60,7 +60,7 @@ productTypes = ET.Element("ProductTypes")
 
 for x in range(0, numberOfProductTypes):
     productType = ET.SubElement(productTypes, "ProductType")
-    ET.SubElement(productType, "ProductType").text = str(x+1)
+    ET.SubElement(productType, "ProductTypeID").text = str(x+1)
     if x+1 <= 3:
         ET.SubElement(productType, "ParentProductType").text = str(x+1)
     else:
