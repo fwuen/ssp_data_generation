@@ -32,8 +32,12 @@ productions = ET.Element("Productions")
 for x in range(0, numberOfProductions):
     production = ET.SubElement(productions, "Production")
     ET.SubElement(production, "ProductionID").text = str(x+1)
-    ET.SubElement(production, "ProductID").text = str(random.randint(1, numberOfProducts))
-    ET.SubElement(production, "MachineID").text = str(random.randint(1, numberOfMachines))
+
+    machine = random.randint(1, numberOfMachines)
+    productsMadeByEachMachine = numberOfProducts/numberOfMachines
+
+    ET.SubElement(production, "ProductID").text = str(random.randint(machine*productsMadeByEachMachine-productsMadeByEachMachine,machine*productsMadeByEachMachine))
+    ET.SubElement(production, "MachineID").text = str(machine)
     ET.SubElement(production, "ToolID").text = str(random.randint(1, numberOfTools))
     ET.SubElement(production, "ProductionOrderID").text = str(random.randint(1, numberOfProductionOrders))
 
