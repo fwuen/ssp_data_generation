@@ -14,6 +14,7 @@ products = ET.Element("Products")
 for x in range(0, numberOfProducts):
     product = ET.SubElement(products, "Product")
     ET.SubElement(product, "ProductID").text = str(x+1)
+    ET.SubElement(product, "ProductName").text = "Product" + str(x+1)
     ET.SubElement(product, "ProductTypeID").text = str(random.randrange(1, numberOfProductTypes+1, 1))
 
 tree = ET.ElementTree(products)
