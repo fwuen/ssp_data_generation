@@ -1,7 +1,7 @@
 import xml.etree.cElementTree as ET
 import random
 
-path = "W:/ssp_data/"
+path = "C:/workspace/ssp_data/"
 
 #########################################################################################
 # product.xml
@@ -44,11 +44,29 @@ for x in range(0, numberOfProductions):
     month = random.randint(1, 12)
 
     if month == 2:
-        ET.SubElement(production, "ProductionDate").text = "2017-2" + "-" + str(random.randint(1, 28))
+        day = random.randint(1, 28)
+        if day < 10:
+            ET.SubElement(production, "ProductionDate").text = "2017-02" + "-0" + str(day)
+        else:
+            ET.SubElement(production, "ProductionDate").text = "2017-02" + "-" + str(day)
     elif month in (1, 3, 5, 7, 8):
-        ET.SubElement(production, "ProductionDate").text = "2017-" + str(month) + "-" + str(random.randint(1, 31))
+        day = random.randint(1, 31)
+        if day < 10:
+            ET.SubElement(production, "ProductionDate").text = "2017-0" + str(month) + "-0" + str(day)
+        else:
+            ET.SubElement(production, "ProductionDate").text = "2017-0" + str(month) + "-" + str(day)
     else:
-        ET.SubElement(production, "ProductionDate").text = "2017-" + str(month) + "-" + str(random.randint(1, 30))
+        day = random.randint(1, 30)
+        if day < 10:
+            if month < 10:
+                ET.SubElement(production, "ProductionDate").text = "2017-0" + str(month) + "-0" + str(day)
+            else:
+                ET.SubElement(production, "ProductionDate").text = "2017-" + str(month) + "-0" + str(day)
+        else:
+            if month < 10:
+                ET.SubElement(production, "ProductionDate").text = "2017-0" + str(month) + "-" + str(day)
+            else:
+                ET.SubElement(production, "ProductionDate").text = "2017-" + str(month) + "-" + str(day)
 
 tree = ET.ElementTree(productions)
 tree.write(path + "production.xml")
@@ -62,9 +80,9 @@ for x in range(0, numberOfProductTypes):
     productType = ET.SubElement(productTypes, "ProductType")
     ET.SubElement(productType, "ProductTypeID").text = str(x+1)
     if x+1 <= 3:
-        ET.SubElement(productType, "ParentProductType").text = str(x+1)
+        ET.SubElement(productType, "ParentProductTypeID").text = str(x+1)
     else:
-        ET.SubElement(productType, "ParentProductType").text = str(random.randint(1, numberOfProductTypes-7))
+        ET.SubElement(productType, "ParentProductTypeID").text = str(random.randint(1, numberOfProductTypes-7))
 
 tree = ET.ElementTree(productTypes)
 tree.write(path + "prod_type.xml")
