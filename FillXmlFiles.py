@@ -1,12 +1,12 @@
 import xml.etree.ElementTree as ET
 import random
 
-path = "W:/ssp_data/"
+path = "C:/workspace/ssp_data/"
 
 numberOfProducts = 100
 numberOfProductTypes = 10
 numberOfProductions = 0
-maxNumberOfProductionOrderItems = 50
+maxNumberOfProductionOrderItems = 15
 numberOfCustomers = 2000
 numberOfProductionOrders = 50
 numberOfMachines = 10
@@ -29,6 +29,13 @@ tree.write(path + "product.xml")
 #########################################################################################
 # production_order
 
+
+def random_no_repeat(numbers, count):
+    number_list = list(numbers)
+    random.shuffle(number_list)
+    return number_list[:count]
+
+
 productionOrders = ET.Element("ProductionOrders")
 
 for x in range(0, numberOfProductionOrders):
@@ -40,15 +47,23 @@ for x in range(0, numberOfProductionOrders):
     numberOfProductionOrderItems = random.randint(1, maxNumberOfProductionOrderItems)
     numberOfProductions += numberOfProductionOrderItems
 
+    # for y in range(0, numberOfProductionOrderItems):
+    #     productionOrderItem = ET.SubElement(productionOrderItems, "ProductionOrderItem")
+    #     ET.SubElement(productionOrderItem, "ProductID").text = str(random.randint(1, numberOfProducts))
+
+    listOfProductIds = random_no_repeat(range(1, numberOfProducts+1, 1), numberOfProductionOrderItems)
+
     for y in range(0, numberOfProductionOrderItems):
         productionOrderItem = ET.SubElement(productionOrderItems, "ProductionOrderItem")
-        ET.SubElement(productionOrderItem, "ProductID").text = str(random.randint(1, numberOfProducts))
+        ET.SubElement(productionOrderItem, "ProductID").text = str(listOfProductIds[y])
 
 tree = ET.ElementTree(productionOrders)
 tree.write(path + "production_order.xml")
 
+
 #########################################################################################
 # production.xml
+
 
 productions = ET.Element("Productions")
 productionId = 1
