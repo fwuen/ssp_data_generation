@@ -3,7 +3,7 @@ import random
 
 path = "C:/workspace/ssp_data/"
 
-numberOfProducts = 100
+numberOfProducts = 20
 numberOfProductTypes = 10
 numberOfProductions = 0
 maxNumberOfProductionOrderItems = 15
@@ -22,6 +22,7 @@ for x in range(0, numberOfProducts):
     ET.SubElement(product, "ProductID").text = str(x+1)
     ET.SubElement(product, "ProductName").text = "Product" + str(x+1)
     ET.SubElement(product, "ProductTypeID").text = str(random.randrange(1, numberOfProductTypes+1, 1))
+    ET.SubElement(product, "Price").text = str(random.randint(40, 5000))
 
 tree = ET.ElementTree(products)
 tree.write(path + "product.xml")
